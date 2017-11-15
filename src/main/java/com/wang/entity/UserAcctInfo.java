@@ -1,9 +1,9 @@
 package com.wang.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import org.hibernate.annotations.GeneratorType;
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
 import java.util.Date;
 
 
@@ -26,7 +26,7 @@ public class UserAcctInfo extends BaseEntity{
     
     public static final String FIELD_NAME_OPEN_ID = "thirdOpenId";
     @Id
-    private String acctId;
+    public String acctId;
     @Column(name = "ACCT_NAME")
     private String acctName;
     @Column(name = "ACCT_PWD")

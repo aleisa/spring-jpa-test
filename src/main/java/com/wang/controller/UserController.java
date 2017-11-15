@@ -1,5 +1,7 @@
 package com.wang.controller;
 
+import com.fasterxml.jackson.databind.JavaType;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wang.entity.UserAcctInfo;
 
 import com.wang.entity.UserParam;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,17 +23,17 @@ import java.util.List;
 public class UserController {
     @Autowired
     UserRepository userRepository;
-
-/*    @RequestMapping("saveUser")
+    public final ObjectMapper mapper = new ObjectMapper();
+    @RequestMapping("saveUser")
     public String saveUser() throws Exception {
-        userRepository.save()
+        userRepository.saveUserAcctInfo();
         return null;
-    }*/
+    }
 
-    @RequestMapping("findUserAcct")
+/*    @RequestMapping("findUserAcct")
     public List<UserAcctInfo> findUserAcct(){
         return userRepository.findUserAcct();
-    }
+    }*/
     @RequestMapping("findByOrgId")
     public List<UserAcctInfo> findByOrgId(@RequestParam Integer orgId){
         return userRepository.findByOrgId(orgId);
@@ -39,12 +42,21 @@ public class UserController {
     public Long countOrgId(@RequestParam Integer orgId){
         return userRepository.countByOrgId(orgId);
     }
-    @RequestMapping("testFind")
+/*    @RequestMapping("testFind")
     public List<UserAcctInfo> testFind(){
         return userRepository.testFind();
-    }
+    }*/
+
+
     @RequestMapping("testQuery")
     public List<UserAcctInfo> testQuery(){
         return userRepository.testQuery();
+    }
+
+    @RequestMapping("batchSave")
+    public void batchSave( @RequestParam String userAcctInfos) throws Exception {
+        JavaType javaType =  mapper.getTypeFactory().constructParametricType(ArrayList.class,UserAcctInfo.class);
+        List<UserAcctInfo> userAcctInfoList = mapper.readValue(userAcctInfos,javaType);
+        userRepository.batchSave(userAcctInfoList);
     }
 }

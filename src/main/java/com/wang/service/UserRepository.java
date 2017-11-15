@@ -23,20 +23,19 @@ public class UserRepository {
     private UserMapper userMapper;
 
 
-/*    public void baseTest() throws Exception {
+    public void saveUserAcctInfo() throws Exception {
         UserAcctInfo info = new UserAcctInfo();
-        info.setAcctId("232123123");
         info.setAcctName("王欣宇");
         info.setAcctPwd("d9b1d7db4cd6e70935368a1efb10e377");
         info.setOrgId(23123);
         info.setAcctRole((short)1);
-        userMapper.save(info);
-    }*/
-
-    public Page<UserAcctInfo> findAcct(){
-       return userMapper.findAll(new PageRequest(0,10));
+        userMapper.saveEntity(info);
     }
 
+/*    public Page<UserAcctInfo> findAcct(){
+       return userMapper.findAll(new PageRequest(0,10));
+    }*/
+/*
     public List<UserAcctInfo> findUserAcct(){
         return userMapper.findAll(new Specification<UserAcctInfo>() {
             @Override
@@ -45,7 +44,7 @@ public class UserRepository {
                 return cb.equal(userJoin.get("orgId"),33);
             }
         });
-    }
+    }*/
 
     public Long countByOrgId(Integer orgId){
         return userMapper.countByOrgId(orgId);
@@ -55,12 +54,22 @@ public class UserRepository {
         return userMapper.findByOrgId(orgId);
     }
 
-    public List<UserAcctInfo> testFind(){
+/*    public List<UserAcctInfo> testFind(){
         return userMapper.testFind();
-    }
+    }*/
 
     public List<UserAcctInfo> testQuery(){
         return userMapper.testQuery("刘毅峰");
+    }
+
+
+    public void batchSave(List<UserAcctInfo> userAcctInfos){
+        try {
+            userMapper.batchSave(userAcctInfos);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
     }
 
 }
