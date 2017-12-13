@@ -18,7 +18,12 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 public class Application extends SpringBootServletInitializer {
 
 
-
+    /*
+        @Override
+        protected SpringApplicationBuilder configure(SpringApplicationBuilder builder){
+               return builder.sources(this.getClass());
+        }
+    */
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }
